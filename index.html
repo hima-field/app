@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>ひまわり畑</title>
+        <meta charset="UTF-8">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Kiwi+Maru&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+        <link rel="manifest" href="manifest.json">
+        <meta name="theme-color" content="#FAAD21">
+        <link rel="icon" type="image/png" href="icon.png">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script><!-- LottieFiles -->
+        <style>
+            :root{
+                --background-link: 0;
+                --mouse-x: 0;
+                --mouse-y: 0;
+            --UpOrUnder: 45px;
+            }
+            *{ box-sizing: border-box; }
+            p{ margin: 5px 0; }
+            body{ font-family: "Kiwi Maru", sans-serif; width: 100%; height: 100vh; margin: 0; overflow-y: scroll; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+            main{ width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+            ::-webkit-scrollbar{ display: none; }
+            .background{ background-image: url(https://files.catbox.moe/q5vd23.jpg); background-repeat: no-repeat; background-size: cover; width: 100vw; height: 100vh; position: fixed; top:0; left: 0; z-index: -1; }/* catbox.moe より */
+            h1,h2,h3{ font-family: "Kaisei Decol", sans-serif; }
+            cade{ display: inline-block; background-color: #ffffffa4; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px) saturate(180%); -webkit-backdrop-filter: blur(10px) saturate(180%); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); padding: 40px; text-align: center; transition: background 0.1s ease, transform 0.2s ease-out; position: relative; }
+            cade:hover{ transform: scale(1.01); }
+            cade:hover icon.logo{ transform: scale(1.2); }
+            img{ -webkit-user-drag: none; user-select: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+            body { background-color: hsla(285, 0%, 100%, 1); background-image: radial-gradient(circle at 30% 6%, hsla(166, 100%, 88%, 0.66) 4.038772213247173%, transparent 37.2265767974114%), radial-gradient(circle at 66% 37%, hsla(116, 100%, 88%, 1) 0%, transparent 63.33640956108327%), radial-gradient(circle at 76% 87%, hsla(61, 100%, 88%, 1) 12.107536057085522%, transparent 63.33640956108327%); background-blend-mode: normal, normal, normal; }
+            .c1{ display: block; width: 90%; height: 300px; margin: 50px 0; margin-top: 100px; }
+            .c2{ display: none; flex-direction: column; width: 90%; height: max-content; margin: 50px 0; }
+            icon{ font-family: 'Material Symbols Outlined'; transition: transform 0.2s ease; display: inline-block; cursor: default; }
+            h1{ font-size: 50px; }
+            .topic{ display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; width: 95%; }
+            .topic cade{ margin: 13px; width: 350px; height: auto; }
+            .topic cade icon, .todo-list .logo{ font-size: 35px; }
+            .topic cade small{ color: #666;  margin: 5px 5px 5px auto; display: block; width: max-content; }
+            .topic1::before{ content: '【重要！】'; background-color: #e41212; border-radius: 16px 16px 0 0; display: inline-block; width: 100%; height: 25px; color: #fff; position: absolute; top: 0; left: 0; }
+            .text-btn{ display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: rgba(255, 255, 255, 0.75); width: max-content; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px) saturate(180%); -webkit-backdrop-filter: blur(10px) saturate(180%); font-family: "Kiwi Maru", sans-serif; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); font-size: 15px; text-decoration: none; color: #000; padding: 10px 15px; margin: 10px auto; transition: background 0.2s ease, transform 0.2s ease-out, filter 0.2s ease; cursor: pointer; }
+            .text-btn:hover{ background: rgba(255, 255, 255, 0.5); filter: brightness(90%); }
+            .text-btn:active{ background: rgba(255, 255, 255, 0.3); transform: scale(0.9); filter: brightness(85%); }
+            .text-btn icon{ font-size: 20px; }
+            .todo-list{ width: 95%; margin: 20px 0; }
+            .todo-list .g1{ display: flex; flex-direction: row; transition: scale 0.2s ease; width: max-content; margin: 7px 0 7px auto; cursor: pointer; }
+            .todo-list .g1 input{ width: 20px; }
+            .todo-list .g1:hover{ scale: 1.1; }
+
+            .todo-cade{ display: flex; flex-direction: row; justify-content: flex-start; align-items: center; width: 100%; height: 50px; margin: 5px 0; padding: 7px 10px; border-radius: 10px; background-color: rgba(255, 255, 255, 0.75); box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.08); cursor: pointer; transition: transform 0.2s ease, filter 0.2s ease; user-select: none; animation: fadeInSlide 0.4s ease-out forwards; }
+            .todo-cade:hover{ transform: scale(1.05); }
+            .todo-cade:active{ filter: brightness(85%); }
+            .todo-cade .sub{ background-color: #07b518; border-radius: 30px; flex: 1; height: 35px; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+            .todo-cade .type{ border-radius: 30px; flex: 1; height: 35px; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+            .todo-cade .date{ flex: 2; }
+            .todo-cade .info{ flex: 4; text-wrap: nowrap; overflow-x: hidden; }
+            .todo-cade.narrow .info, .todo-cade.narrow .date, .todo-cade.narrow hr:nth-of-type(1){ display: none; }
+            .todo-cade .buttons{ margin-left: auto; height: 100%; display: flex; flex-direction: row; align-items: center;  }
+            .todo-cade .buttons button{ background: none; border: none; border-radius: 50%; transition: transform 0.2s ease; cursor: pointer; }
+            .todo-cade .buttons button:hover{ transform: scale(1.1); }
+            .todo-cade .buttons button icon{ font-size: 30px; cursor: pointer !important; }
+            .todo-cade .check-btn{ color: #07b518; }
+            .todo-cade .important-btn{ color: #e41212; }
+            .todo-cade hr{ width: 1px; height: 80%; border: 1px solid rgba(3, 26, 57, 0.5); margin: 0; }
+            .todo-cade .check-btn.on icon{ font-variation-settings: 'FILL' 1; animation: bouncePop 0.3s ease; }
+            .todo-cade .important-btn.on icon{ font-variation-settings: 'FILL' 1; animation: bouncePop 0.3s ease; }
+
+            footer{ display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: rgba(250, 250, 250, 0.18); backdrop-filter: blur(10px) saturate(200%); -webkit-backdrop-filter: blur(10px) saturate(200%); color: #fff; padding: 10px 0 50px 0; margin-top: 100px; }
+            footer h3, footer small, footer p{ margin: 10px 0; text-shadow: 0 0 10px rgba(0, 0, 0, 0.4); text-align: center; }
+            footer li{ text-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+
+            .info-cade{ position: fixed; top:50%; left: 50%; transform: translate(-50%, -50%); display: none; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 10px 15px; border-radius: 20px; overflow-y: scroll; background-color: rgba(255, 255, 255, 0.75); backdrop-filter: blur(10px) saturate(180%); -webkit-backdrop-filter: blur(10px) saturate(180%); width: 80%; height: 80%; z-index: 90; }
+            .info-cade small{ color: #896807; }
+            .info-cade p{ margin: 5px 10px; }
+            .overlay{ position: fixed; top:50%; left: 50%; transform: translate(-50%, -50%); display: none; background-color: rgba(112, 112, 112, 0.75);  backdrop-filter: blur(10px) saturate(180%); -webkit-backdrop-filter: blur(10px) saturate(180%); width: 100vw; height: 100vh; z-index: 80; }
+            .close-btn{ width: 50px; height: 50px; border-radius: 50%; }
+            .close-btn icon{ font-size: 20px !important; cursor: pointer !important; }
+
+            .segmented-control{ display: flex; flex-direction: row; align-items: center; justify-content: center; position: relative; border-radius: 30px; padding: 5px; margin: 30px auto 20px auto; width: 60%; height: 45px; max-width: 500px; background-color: rgba(255, 255, 255, 0.75); box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.08); transition: transform 0.2s ease; overflow: hidden; }
+            .segmented-control:hover{ transform: scale(1.05); }
+            .segmented-control input[type="radio"]{ display: none; }
+            .segmented-control label{ flex: 1; display: flex; align-items: center; justify-content: center; height: 90%; font-size: 15px; color: #666; cursor: pointer; transition: color 0.2s ease; z-index: 1; transition: color 0.2s ease; user-select: none; }
+            .segmented-control label:hover{ color: #000; }
+            .segmented-control label:active{ background-color: rgba(0, 0, 0, 0.1); border-radius: 30px; }
+            .segmented-control label icon{ margin: 0 5px; }
+            .segmented-control input[type="radio"]:checked + label{ color: #fff; }
+            .segmented-control .indicator{ position: absolute; top: 5px; bottom: 5px; left: 5px; background-color: #056d0a; width: calc((100% - 10px) / 3);/*全体から項目分割る*/ height: calc(100% - 10px); border-radius: 30px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+            #option1:checked ~ .indicator{ transform: translateX(0%); }
+            #option2:checked ~ .indicator{ transform: translateX(100%); }
+            #option3:checked ~ .indicator{ transform: translateX(200%); }
+            lottie-player{ width: 100vw; height: 100vh; display: block; position: fixed; top: 0; left: 0; z-index: 50; pointer-events: none; }
+            .under-text{ position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); width: max-content; min-width: 50px; height: 50px; background-color: rgba(0, 83, 12, 1); color: #fff; border-radius: 10px; display: none; align-items: center; justify-content: center; padding: 5px 20px; box-shadow: 0 3px 20px 1px #00000081; }
+            @keyframes fadeInSlide {
+                0%{ opacity: 0; scale: 0.7; }
+                100%{ opacity: 1; scale: 1.0; }
+            }
+            @keyframes bouncePop {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.3); }
+                100% { transform: scale(1); }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="background"></div>
+        <lottie-player src="confetti.json" id="confetti" background="transparent" speed="1"></lottie-player>
+        <main>
+        <cade class="c1"><p>1-4　課題・勉強 管理ソフト</p><h1>🌻ひまわり畑🌻</h1><p>〜信頼・飛び立つ〜</p></cade>
+        <cade class="c2"><icon style="font-size: 50px;">&#xf03e;</icon><p>error code</p><h1>401 Unauthorized</h1><h3>推奨される対応</h3><p>内部のアカウントでログインしているか確認してください。</p><h3>エラーによる被害</h3><p>『やることリスト』など課題の情報を必要とするコンテンツが使用できなくなる可能性があります。</p></cade>
+        <div class="topic">
+            <cade class="topic1"><icon class="logo">&#xe000;</icon><h3>この課題ギリギリ！</h3><p>提出期限が近く取り組んでいない課題です。</p><small>5日以内</small><div id="topic1_box"></div></cade>
+            <cade class="topic2"><icon class="logo">&#xef42;</icon><h3>まずはこのテスト対策</h3><p>期日が近いテストです。</p><small>20日以内</small><div id="topic2_box"></div></cade>
+            <cade class="topic3"><icon class="logo">&#xe889;</icon><h3>ここを再チェック</h3><p>近いテスト＆期限の近い課題です。確認しておきましょう。</p><small>5日以内</small><div id="topic3_box"></div></cade>
+        </div>
+        <cade class="todo-list">
+            <icon class="logo">&#xe616;</icon><h2>やることリスト</h2>
+            <a href="#" class="text-btn"><icon>&#xf88d;</icon>編集する</a>
+            <small>注意：必要事項が未入力だったり、認識できない場合は除外される場合があります。</small>
+            <div class="segmented-control">
+                <input type="radio" id="option1" name="segmented-option" oninput="todo_filter = 'all'; todoFilter();" checked>
+                <label for="option1"><icon>&#xe162;</icon>すべて</label>
+                <input type="radio" id="option2" name="segmented-option" oninput="todo_filter = 'important'; todoFilter();">
+                <label for="option2"><icon>&#xe004;</icon>重要</label>
+                <input type="radio" id="option3" name="segmented-option" oninput="todo_filter = 'task'; todoFilter();">
+                <label for="option3"><icon>&#xe51d;</icon>未完了</label>
+                <div class="indicator"></div>
+            </div>
+            <div id="todoList"></div>
+        </cade>
+        </main>
+        <footer>
+            <h3>課題管理ソフト - ひまわり畑</h3>
+            <p>&copy; 2026 Taisei Sugawara. All rights reserved.</p>
+            <p>Developed for "grade 1 class 4".</p>
+            <p>v1.0.0 / 2026.10 update</p>
+            <hr style="width: 50%;">
+            <p>注意</p>
+            <ul>
+                <li>ブラウザのキャッシュ削除等で一部の保存データが消える場合があります。</li>
+                <li>安全のため、課題の提出期限などは学校の連絡・掲示もあわせて確認してください。</li>
+                <li>システムの修正により一時的に利用できない場合があります。</li>
+                <li>情報の追加・編集・削除は自己責任で行ってください。</li>
+                <li>本ソフトの一部又は全部を無断で複製・転載する行為、迷惑行為、法令違反となる行為、誹謗中傷、他人の著作権やプライバシーの侵害等は禁止です。</li>
+            </ul>
+        </footer>
+
+        <div class="info-cade">
+            <button class="close-btn text-btn" onclick="infoCade_none();"><icon>&#xe5cd;</icon></button>
+            <h3><icon>&#xe88e;</icon>詳細表示</h3>
+            <small>教科</small><p class="sub"></p>
+            <small>種類</small><p class="type"></p>
+            <small>期限</small><p class="date"></p>
+            <small>説明・補足</small><p class="info"></p>
+        </div>
+        <div class="under-text"></div>
+        <div class="overlay"></div>
+        <script>
+            // 一秒待つ関数
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            function is401Error() {
+                document.querySelector('.c2').style.display = 'flex';
+            }
+            let todo_filter = 'all';
+
+            // マウス追従ライトエフェクト
+            document.querySelectorAll('cade, [data-glass]').forEach((glassCade) => {
+                glassCade.addEventListener('mousemove', (e) => {
+                const rect = glassCade.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                glassCade.style.background = `
+                radial-gradient(circle at ${x}% ${y}%,
+                rgba(255,255,255,0.25) 0%,
+                rgba(255,255,255,0.08) 50%,
+                rgba(255,255,255,0.12) 100%)
+                `;
+                });
+
+                glassCade.addEventListener('mouseleave', () => {
+                glassCade.style.background = '';
+                });
+            });
+
+            // -- 日付の文字列から「月」と「日」を安全に抽出して数値にする関数 --
+            function parseDate(dateStr) {
+            if (!dateStr) return { month: 0, day: 0, text: '未指定' };
+
+            // 1. 全角数字を半角数字に一括変換する（例：１０ → 10）
+            const halfWidthStr = dateStr.replace(/[０-９]/g, function(s) {
+                return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+            });
+            // 2. 正規表現を使って、数字の塊をすべて見つけ出す
+            // （例：「10月19日(月)」や「11/5」から数字部分だけをキャッチする）
+            const matches = halfWidthStr.match(/\d+/g);
+
+            if (!matches || matches.length < 2) {
+                // 数字が2つ見つからない場合はそのまま元の文字列を返す
+                return { month: 0, day: 0, text: dateStr };
+            }
+            // 見つかった最初の数字を「月」、2番目の数字を「日」にする
+            const month = parseInt(matches[0], 10);
+            const day = parseInt(matches[1], 10);
+
+            return {
+                month: month,
+                day: day,
+                text: dateStr // 表示用には元のきれいな文字列をそのまま残す
+            };
+            }
+            function infoCade_show(sub, type, date, info) {
+                document.querySelector('.info-cade .sub').textContent = sub || '未指定';
+                document.querySelector('.info-cade .type').textContent = type || '未指定';
+                if (date === '0/0') { document.querySelector('.info-cade .date').textContent = '未指定'; } else { document.querySelector('.info-cade .date').textContent = date || '未指定'; }
+                document.querySelector('.info-cade .info').textContent = info || '説明はありません';
+                document.querySelector('.info-cade').style.display = 'flex';
+                overlay_on();
+            }
+            function infoCade_none(){
+                document.querySelector('.info-cade').style.display = 'none';
+                overlay_off();
+            }
+            const overlay_html = document.querySelector('.overlay');
+            function overlay_on (){
+                overlay_html.style.display = 'flex';
+            }
+            function overlay_off (){
+                overlay_html.style.display = 'none';
+            }
+       
+            let get_data = null;
+            let input_date = '未指定';
+            let todo_html = 0;
+            
+
+            function fetchIsSucces(data){
+                get_data = (data);
+                console.log(get_data);
+
+                todo_html = document.getElementById('todoList')
+                todo_html.innerHTML = get_data;
+                fixedData();
+            }
+            function fixedData() {
+                if(!get_data){ return; }
+                // (2)加工
+                const data_row = get_data.split('\n'); // 改行(\n)から行ごとに分ける
+                const calendar_data = data_row.map(row => row.split('\t')); // 値ごとに別ける
+                console.log(calendar_data);
+                // (3) 出力準備
+                todo_html.innerHTML = ''; // リセット
+                 // 1行目はスキップ
+                const items = calendar_data.slice(1).map((row, index) => {
+                    return{ row: row, originalIndex: index };
+                });
+                
+                items.sort((a, b) => {
+                    // 0番目は取り出す
+                    const dateA = parseDate(a.row[0]);
+                    const dateB = parseDate(b.row[0]);
+                    // 調整用に仮の月
+                    let monthA = dateA.month;
+                    let monthB = dateB.month;
+                    // 年明け対策 1~3月なら+12
+                    if(monthA >= 1 && monthA <= 3) { monthA += 12; }
+                    if(monthB >= 1 && monthB <= 3) { monthB += 12; }
+
+                    // 月を比較
+                    if(monthA !== monthB){
+                        return monthA - monthB;
+                    }
+                    // 同じ月なら、日を比較
+                    return dateA.day - dateB.day;
+                });
+
+                output(items);
+            }
+            // -- カードを生成する共通関数 --
+            function createTodoCard(row, originalIndex, nearTaskClass) {
+                const [date, sub, type, info] = row;
+                const parsedDate = parseDate(date);
+                const subColor = putSubjectColor(sub);
+                
+                // 自動再現（チェック状態などの反映）
+                const isChecked = done_CheckedDate.includes(String(originalIndex));
+                const checkBtnClass = isChecked ? 'check-btn on' : 'check-btn';
+                const isImportant = important_CheckedDate.includes(String(originalIndex));
+                const importantBtnClass = isImportant ? 'important-btn on' : 'important-btn';
+
+                const calendar_cade_html = `
+                    <div class="sub" style="background-color:${subColor}">${sub || '?'}</div>
+                    <div class="type">${type || '未指定'}</div><hr>
+                    <div class="date">${parsedDate.text || '未指定'}</div><hr>
+                    <div class="info">${info || '説明はありません'}</div>
+                    <div class="buttons"><hr>
+                        <button class="${importantBtnClass}" onclick="importantBtn(this);"><icon>&#xe000;</icon></button>
+                        <button class="${checkBtnClass}" onclick="checkBtn_change(this);"><icon>&#xe86c;</icon></button>
+                    </div>
+                `;
+
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'todo-cade ' + nearTaskClass;
+                cardDiv.dataset.id = originalIndex;
+                cardDiv.innerHTML = calendar_cade_html;
+                
+                // それぞれのカードごとに ResizeObserver を設定
+                const resizeObserver = new ResizeObserver(entries => {
+                    for (let entry of entries){
+                        const currentWidth = entry.contentRect.width;
+                        if(currentWidth > 500){
+                            cardDiv.classList.remove('narrow');
+                        } else {
+                            cardDiv.classList.add('narrow');
+                        }
+                    }
+                });
+                resizeObserver.observe(cardDiv);
+                
+                // クリック時の詳細表示
+                cardDiv.addEventListener('click', (e) => {
+                    if(e.target.closest('.buttons')) { return; }
+                    infoCade_show(sub || '', type || '', date || '', info || '');
+                });
+
+                return cardDiv;
+            }
+
+            // (4) 出力
+            function output(items) {
+                const topic3Box = document.getElementById('topic3_box');
+                topic3Box.innerHTML = '';
+                const topic2Box = document.getElementById('topic2_box');
+                topic2Box.innerHTML = '';
+                const topic1Box = document.getElementById('topic1_box');
+                topic1Box.innerHTML = '';
+    
+                items.forEach((item) =>{
+                    const row = item.row;
+                    const originalIndex = item.originalIndex;
+
+                    const [date, sub, type, info] = row;
+                    if(!sub && !date){ return; }
+                    const parsedDate = parseDate(date);
+
+                    const isNear = nearTask(parsedDate.month, parsedDate.day);
+                    const isSoon = soonTask(parsedDate.month, parsedDate.day);
+                    const isImportant = important_CheckedDate.includes(String(originalIndex));
+                    const isChecked = done_CheckedDate.includes(String(originalIndex));
+                    const nearTaskClass = isNear ? 'nearTask' : '';
+
+                    // 1. やることリスト用のカードを作成して追加
+                    const todoCard = createTodoCard(row, originalIndex, nearTaskClass);
+                    todo_html.appendChild(todoCard);
+
+                    // 2. 近い課題（topic3）の場合は、専用のカードをもう一つ作成して追加
+                    if(isNear){
+                        const topicCard = createTodoCard(row, originalIndex, nearTaskClass);
+                        topic3Box.appendChild(topicCard);
+                    }
+                    if((type === '単元テスト' || type === '小テスト') && isSoon){
+                        const topicCard = createTodoCard(row, originalIndex, nearTaskClass);
+                        topic2Box.appendChild(topicCard);
+                    }
+                    if(isNear && !isChecked){
+                        const topicCard = createTodoCard(row, originalIndex, nearTaskClass);
+                        topic1Box.appendChild(topicCard);
+                    }
+                });
+            }
+
+            function fetchHaveError(error){
+                console.error(error);
+            }
+            // (一時コピー) 実験用(アカウント：ebi200276)：https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9YY1StNsNVb8LZAWyZMt3MqqpT4AE4_55pv2wJ7UbzeS0g_QXcNVxVaTutthA7MO3k7_oDLMyg66o/pub?output=tsv
+            // (1)受信
+            fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRrT4YhgGKSu3Mod5zXb_NPmdtLSEOAqaOk30FJ9kzH4gDIAV0ETQccUjM_6YphrlAGjbk5XDOFARON/pub?output=tsv')
+                .then((response) => {
+                    // ステータスコードが 200〜299 以外（401や404など）の場合
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            is401Error();
+                            throw new Error('401 Unauthorized: 401エラーです');
+                        } else {
+                            throw new Error(`HTTPエラーが発生しました: ${response.status} ${response.statusText}`);
+                        }
+                    }
+                    return response.text();
+                })
+                .then((data) => {
+                    fetchIsSucces(data);
+                })
+                .catch((error) => fetchHaveError('(๑º△º๑) 「エラーだよ〜!」：' + error));
+
+            // 教科の色
+            const subject_color = {
+                '国語': '#fbbf24',
+                '数学': '#60a5fa',
+                '英語': '#f97316',
+                '理科': '#34d399',
+                '社会': '#c084fc',
+                '美術': '#ADE0EE',
+                '音楽': '#f87171',
+                '保体': '#f472b6',
+                '技術': '#94a3b8',
+                '家庭': '#FFFADE',
+            };
+            function putSubjectColor(subName) {
+                const clearName = subName ? subName.trim() : ''; // スペースを取り除く
+                return subject_color[clearName] || '#07b518'; // 配列から対応する色を取り出し戻り値を実行、右が代替用
+            }
+            let savedData_done = localStorage.getItem('done_checked');
+            let done_CheckedDate = savedData_done ? savedData_done.split(',') : []; // ローカルストレージのデータをカンマ区切りに戻す
+            let savedData_important = localStorage.getItem('important_checked');
+            let important_CheckedDate = savedData_important ? savedData_important.split(',') : [];
+
+            const confettiPlayer = document.getElementById('confetti');
+            
+
+            function checkBtn_change(button) {
+                const thisCade = button.closest('.todo-cade');
+                const dataID = String(thisCade.dataset.id);
+                button.classList.toggle('on');
+
+                if(button.classList.contains('on')){
+                    console.log('onにします！');
+                    done_CheckedDate.push(dataID);
+                    savelocal();
+                    UnderText('すごい！課題を一つ終わらせた！');
+                    confettiPlayer.stop(); // 初期化
+                    confettiPlayer.play(); // 再生
+                } else {
+                    console.log('offにします');
+                    const index = done_CheckedDate.indexOf(dataID);
+                    if(index > -1){
+                        done_CheckedDate.splice(index,1);
+                    }
+                    savelocal();
+                }
+            }
+            function importantBtn(button) {
+                const thisCade = button.closest('.todo-cade');
+                const dataID = String(thisCade.dataset.id);
+                button.classList.toggle('on');
+
+                if(button.classList.contains('on')){
+                    console.log('important onにします！');
+                    important_CheckedDate.push(dataID);
+                    savelocal();
+                    UnderText('「塵も積もれば山となる」継続して頑張ろう！')
+                } else {
+                    console.log('important offにします');
+                    const index = important_CheckedDate.indexOf(dataID);
+                    if(index > -1){
+                        important_CheckedDate.splice(index,1);
+                    }
+                    savelocal();
+                }
+            }
+            function savelocal() {
+                localStorage.setItem('done_checked', done_CheckedDate);
+                console.log('saved : ' + localStorage.getItem('done_checked'));
+                localStorage.setItem('important_checked', important_CheckedDate);
+                console.log('saved : ' + localStorage.getItem('important_checked'));
+            }
+            function todoFilter() {
+                const cards = document.querySelectorAll('#todoList .todo-cade');
+                cards.forEach(card => {
+                    const checkBtn = card.querySelector('.check-btn');
+                    const importantBtn = card.querySelector('.important-btn')
+                    // onが含まれているかチェック
+                    const isDone = checkBtn.classList.contains('on');
+                    const isImportant = importantBtn.classList.contains('on');
+                    if(todo_filter === 'all'){
+                        card.style.display = 'flex';
+                    }else if(todo_filter === 'important'){
+                        // 重要がonのものだけ表示
+                        if(isImportant){
+                            card.style.display = 'flex';
+                        }else{
+                            card.style.display = 'none';
+                        }
+                    }else if(todo_filter === 'task'){
+                        // 未完了がonのものだけ表示
+                        if(!isDone){
+                            card.style.display = 'flex';
+                        }else{
+                            card.style.display = 'none';
+                        }
+                    }
+                })
+            }
+            function UnderText(text) {
+                const underText_html = document.querySelector('.under-text');
+                underText_html.style.display = 'flex';
+                underText_html.innerHTML = text;
+                async function main() { await sleep(2000); underText_html.style.display = 'none'; }
+                main();
+            }
+            // -- 近い課題かどうか --
+            function nearTask(month, day) {
+                if(!month || !day){ return; }
+
+                // 現在の月日とか
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);// 時間分秒をリセット
+                const year = today.getFullYear();//西暦
+
+                let targetDate = new Date(year, month - 1, day); // 月を調節
+                targetDate.setHours(0, 0, 0, 0); // 同様にリセット
+
+                if(today.getMonth() >= 9 && month >= 1 && month <= 3){
+                    targetDate.setFullYear(year + 1); // ターゲット月が「1月、2月、3月」の場合来年へ繰り上げ(year + 1)
+                }
+
+                const diffTime = targetDate - today; // ミリ秒の差を出す
+                const diffDay = Math.round(diffTime / (1000 * 60 * 60 * 24)); // それを「1000ミリ秒 × 60秒 × 60分 × 24時間」で割って何日分の差か求める
+
+                return diffDay >= 0 && diffDay <= 5; // 0~5の時にtrueを返す(6以上や過ぎたマイナスはfalse)
+            }
+            function soonTask(month, day) {
+                if(!month || !day){ return; }
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const year = today.getFullYear();
+
+                let targetDate = new Date(year, month - 1, day);
+                targetDate.setHours(0, 0, 0, 0);
+
+                if(today.getMonth() >= 9 && month >= 1 && month <= 3){
+                    targetDate.setFullYear(year + 1);
+                }
+
+                const diffTime = targetDate - today;
+                const diffDay = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+                return diffDay >= 0 && diffDay <= 20;
+            }
+            
+
+        </script>
+    </body>
+</html>
