@@ -1,0 +1,15 @@
+{
+  "name": "課題管理ソフト - ひまわり畑",
+  "short_name": "ひまわり畑",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#90D7EC",
+  "theme_color": "#FAAD21",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
